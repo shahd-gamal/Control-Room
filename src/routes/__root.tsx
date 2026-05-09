@@ -7,9 +7,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useState } from "react";
-import { Sidebar } from "@/components/Sidebar";
-import { TopNav } from "@/components/TopNav";
+import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/lib/auth";
 
 import appCss from "../styles.css?url";
 
@@ -36,10 +35,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
       <div className="glass rounded-2xl p-10 max-w-md text-center">
         <h1 className="text-xl font-semibold">Something went wrong</h1>
         <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
-        <button
-          onClick={() => { router.invalidate(); reset(); }}
-          className="mt-6 inline-flex items-center justify-center rounded-xl gradient-primary px-5 py-2.5 text-sm font-medium text-primary-foreground glow"
-        >
+        <button onClick={() => { router.invalidate(); reset(); }} className="mt-6 inline-flex items-center justify-center rounded-xl gradient-primary px-5 py-2.5 text-sm font-medium text-primary-foreground glow">
           Try again
         </button>
       </div>
@@ -52,8 +48,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Nova — Personal Business Dashboard" },
-      { name: "description", content: "Modern personal business dashboard for clients, finance, tasks and schedule." },
+      { title: "Nova — Personal Business Manager" },
+      { name: "description", content: "Track income, expenses, clients, Facebook posts and tasks in one private dashboard." },
     ],
     links: [{ rel: "stylesheet", href: appCss }],
   }),
@@ -74,19 +70,12 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const [open, setOpen] = useState(false);
-
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen w-full">
-        <Sidebar open={open} onClose={() => setOpen(false)} />
-        <main className="flex-1 min-w-0 px-4 lg:px-6 pb-10">
-          <TopNav onMenu={() => setOpen(true)} />
-          <div className="pt-6">
-            <Outlet />
-          </div>
-        </main>
-      </div>
+      <AuthProvider>
+        <Outlet />
+        <Toaster />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
