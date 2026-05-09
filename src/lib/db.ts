@@ -17,6 +17,16 @@ type Tables = {
 };
 
 function makeResource<K extends keyof Tables>(table: K, orderBy: string, ascending = false) {
+  // Cast to any: we provide our own typed Row interfaces via Tables[K].
+  const db = supabase as unknown as {
+    from: (t: string) => {
+      select: (s: string) => { order: (c: string, o: { ascending: boolean }) => Promise<{ data: unknown; error: { message: string } | null }> };
+      insert: (row: unknown) => { select: () => { single: () => Promise<{ data: unknown; error: { message: string } | null }> } };
+      update: (row: unknown) => { eq: (k: string, v: string) => { select: () => { single: () => Promise<{ data: unknown; error: { message: string } | null }> } } };
+      delete: () => { eq: (k: string, v: string) => Promise<{ error: { message: string } | null }> };
+    };
+  };
+
   return function useResource() {
     const qc = useQueryClient();
     const { user } = useAuth();
@@ -25,8 +35,8 @@ function makeResource<K extends keyof Tables>(table: K, orderBy: string, ascendi
       queryKey: [table, user?.id],
       enabled: !!user,
       queryFn: async () => {
-        const { data, error } = await supabase.from(table).select("*").order(orderBy, { ascending });
-        if (error) throw error;
+        const { data, error } = await db.from(table).select("*").order(orderBy, { ascending });
+        if (error) throw new Error(error.message);
         return (data ?? []) as Tables[K][];
       },
     });
@@ -34,35 +44,31 @@ function makeResource<K extends keyof Tables>(table: K, orderBy: string, ascendi
     const create = useMutation({
       mutationFn: async (row: Partial<Tables[K]>) => {
         if (!user) throw new Error("Not authenticated");
-        const { data, error } = await supabase
-          .from(table)
-          .insert({ ...row, user_id: user.id } as never)
-          .select()
-          .single();
-        if (error) throw error;
-        return data;
+        const { data, error } = await db.from(table).insert({ ...row, user_id: user.id }).select().single();
+        if (error) throw new Error(error.message);
+        return data as Tables[K];
       },
       onSuccess: () => qc.invalidateQueries({ queryKey: [table] }),
     });
 
     const update = useMutation({
       mutationFn: async ({ id, patch }: { id: string; patch: Partial<Tables[K]> }) => {
-        const { data, error } = await supabase.from(table).update(patch as never).eq("id", id).select().single();
-        if (error) throw error;
-        return data;
+        const { data, error } = await db.from(table).update(patch).eq("id", id).select().single();
+        if (error) throw new Error(error.message);
+        return data as Tables[K];
       },
       onSuccess: () => qc.invalidateQueries({ queryKey: [table] }),
     });
 
     const remove = useMutation({
       mutationFn: async (id: string) => {
-        const { error } = await supabase.from(table).delete().eq("id", id);
-        if (error) throw error;
+        const { error } = await db.from(table).delete().eq("id", id);
+        if (error) throw new Error(error.message);
       },
       onSuccess: () => qc.invalidateQueries({ queryKey: [table] }),
     });
 
-    return { list, create, update, remove, items: list.data ?? [] };
+    return { list, create, update, remove, items: (list.data ?? []) as Tables[K][] };
   };
 }
 
