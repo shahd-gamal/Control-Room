@@ -2,11 +2,7 @@ import { motion } from "framer-motion";
 
 export function PageHeader({ title, subtitle, action }: { title: string; subtitle?: string; action?: React.ReactNode }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="flex flex-wrap items-end justify-between gap-4 mb-6"
-    >
+    <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap items-end justify-between gap-4 mb-6">
       <div>
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">{title}</h1>
         {subtitle && <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>}
@@ -26,3 +22,6 @@ export function Badge({ children, tone = "default" }: { children: React.ReactNod
   };
   return <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${tones[tone]}`}>{children}</span>;
 }
+
+export const inputClass =
+  "w-full bg-white/5 border border-glass-border rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-primary/60 transition-colors placeholder:text-muted-foreground";

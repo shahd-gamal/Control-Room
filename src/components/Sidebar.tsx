@@ -1,27 +1,24 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Users, Wallet, ListChecks, Calendar, RefreshCw, Sparkles, X } from "lucide-react";
+import { LayoutDashboard, Users, ArrowDownRight, ArrowUpRight, ListChecks, Megaphone, Sparkles, X, LogOut } from "lucide-react";
 import { motion } from "framer-motion";
+import { useAuth } from "@/lib/auth";
 
 const items = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/income", label: "Income", icon: ArrowUpRight },
+  { to: "/expenses", label: "Expenses", icon: ArrowDownRight },
   { to: "/clients", label: "Clients", icon: Users },
-  { to: "/finance", label: "Finance", icon: Wallet },
+  { to: "/posts", label: "FB Posts", icon: Megaphone },
   { to: "/tasks", label: "Tasks", icon: ListChecks },
-  { to: "/schedule", label: "Schedule", icon: Calendar },
-  { to: "/revisions", label: "Revisions", icon: RefreshCw },
 ] as const;
 
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
+  const { signOut, user } = useAuth();
 
   return (
     <>
-      {open && (
-        <div
-          onClick={onClose}
-          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm lg:hidden"
-        />
-      )}
+      {open && <div onClick={onClose} className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm lg:hidden" />}
       <aside
         className={`fixed lg:sticky top-0 z-40 h-screen w-72 shrink-0 transition-transform duration-300 ${
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
@@ -71,12 +68,13 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
           </nav>
 
           <div className="glass-strong rounded-xl p-4 mt-4">
-            <div className="text-xs text-muted-foreground">Plan</div>
-            <div className="font-semibold mt-1">Pro Workspace</div>
-            <div className="mt-3 h-1.5 rounded-full bg-white/10 overflow-hidden">
-              <div className="h-full w-3/4 gradient-primary rounded-full" />
-            </div>
-            <div className="text-xs text-muted-foreground mt-2">75% storage used</div>
+            <div className="text-xs text-muted-foreground truncate">{user?.email}</div>
+            <button
+              onClick={() => signOut()}
+              className="mt-3 w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-sm font-medium transition-colors"
+            >
+              <LogOut className="h-4 w-4" /> Sign out
+            </button>
           </div>
         </div>
       </aside>
