@@ -79,3 +79,4 @@ export const useIncome = makeResource("income", "date");
 export const useClients = makeResource("clients", "created_at");
 export const usePosts = makeResource("posts", "scheduled_at", true);
 export const useTasks = makeResource("tasks", "due_date", true);
+export const usePasswords = makeResource("passwords", "created_at");
