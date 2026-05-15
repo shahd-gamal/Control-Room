@@ -13,6 +13,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
 import { Route as AuthenticatedPostsRouteImport } from './routes/_authenticated/posts'
+import { Route as AuthenticatedPasswordsRouteImport } from './routes/_authenticated/passwords'
 import { Route as AuthenticatedIncomeRouteImport } from './routes/_authenticated/income'
 import { Route as AuthenticatedExpensesRouteImport } from './routes/_authenticated/expenses'
 import { Route as AuthenticatedClientsRouteImport } from './routes/_authenticated/clients'
@@ -36,6 +37,11 @@ const AuthenticatedPostsRoute = AuthenticatedPostsRouteImport.update({
   path: '/posts',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedPasswordsRoute = AuthenticatedPasswordsRouteImport.update({
+  id: '/passwords',
+  path: '/passwords',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedIncomeRoute = AuthenticatedIncomeRouteImport.update({
   id: '/income',
   path: '/income',
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/clients': typeof AuthenticatedClientsRoute
   '/expenses': typeof AuthenticatedExpensesRoute
   '/income': typeof AuthenticatedIncomeRoute
+  '/passwords': typeof AuthenticatedPasswordsRoute
   '/posts': typeof AuthenticatedPostsRoute
   '/tasks': typeof AuthenticatedTasksRoute
 }
@@ -64,6 +71,7 @@ export interface FileRoutesByTo {
   '/clients': typeof AuthenticatedClientsRoute
   '/expenses': typeof AuthenticatedExpensesRoute
   '/income': typeof AuthenticatedIncomeRoute
+  '/passwords': typeof AuthenticatedPasswordsRoute
   '/posts': typeof AuthenticatedPostsRoute
   '/tasks': typeof AuthenticatedTasksRoute
   '/': typeof AuthenticatedIndexRoute
@@ -74,21 +82,37 @@ export interface FileRoutesById {
   '/_authenticated/clients': typeof AuthenticatedClientsRoute
   '/_authenticated/expenses': typeof AuthenticatedExpensesRoute
   '/_authenticated/income': typeof AuthenticatedIncomeRoute
+  '/_authenticated/passwords': typeof AuthenticatedPasswordsRoute
   '/_authenticated/posts': typeof AuthenticatedPostsRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/clients' | '/expenses' | '/income' | '/posts' | '/tasks'
+  fullPaths:
+    | '/'
+    | '/clients'
+    | '/expenses'
+    | '/income'
+    | '/passwords'
+    | '/posts'
+    | '/tasks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/clients' | '/expenses' | '/income' | '/posts' | '/tasks' | '/'
+  to:
+    | '/clients'
+    | '/expenses'
+    | '/income'
+    | '/passwords'
+    | '/posts'
+    | '/tasks'
+    | '/'
   id:
     | '__root__'
     | '/_authenticated'
     | '/_authenticated/clients'
     | '/_authenticated/expenses'
     | '/_authenticated/income'
+    | '/_authenticated/passwords'
     | '/_authenticated/posts'
     | '/_authenticated/tasks'
     | '/_authenticated/'
@@ -128,6 +152,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPostsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/passwords': {
+      id: '/_authenticated/passwords'
+      path: '/passwords'
+      fullPath: '/passwords'
+      preLoaderRoute: typeof AuthenticatedPasswordsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/income': {
       id: '/_authenticated/income'
       path: '/income'
@@ -156,6 +187,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedClientsRoute: typeof AuthenticatedClientsRoute
   AuthenticatedExpensesRoute: typeof AuthenticatedExpensesRoute
   AuthenticatedIncomeRoute: typeof AuthenticatedIncomeRoute
+  AuthenticatedPasswordsRoute: typeof AuthenticatedPasswordsRoute
   AuthenticatedPostsRoute: typeof AuthenticatedPostsRoute
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
@@ -165,6 +197,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedClientsRoute: AuthenticatedClientsRoute,
   AuthenticatedExpensesRoute: AuthenticatedExpensesRoute,
   AuthenticatedIncomeRoute: AuthenticatedIncomeRoute,
+  AuthenticatedPasswordsRoute: AuthenticatedPasswordsRoute,
   AuthenticatedPostsRoute: AuthenticatedPostsRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,

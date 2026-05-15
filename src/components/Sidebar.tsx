@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Users, ArrowDownRight, ArrowUpRight, ListChecks, Megaphone, Sparkles, X, LogOut } from "lucide-react";
+import { LayoutDashboard, Users, ArrowDownRight, ArrowUpRight, ListChecks, Megaphone, Sparkles, X, LogOut, KeyRound } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/auth";
 
@@ -10,6 +10,7 @@ const items = [
   { to: "/clients", label: "Clients", icon: Users },
   { to: "/posts", label: "FB Posts", icon: Megaphone },
   { to: "/tasks", label: "Tasks", icon: ListChecks },
+  { to: "/passwords", label: "Pass Sheet", icon: KeyRound },
 ] as const;
 
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {

@@ -122,6 +122,45 @@ export type Database = {
         }
         Relationships: []
       }
+      passwords: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          label: string
+          notes: string | null
+          password: string
+          updated_at: string
+          url: string | null
+          user_id: string
+          username: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          label: string
+          notes?: string | null
+          password: string
+          updated_at?: string
+          url?: string | null
+          user_id: string
+          username?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          label?: string
+          notes?: string | null
+          password?: string
+          updated_at?: string
+          url?: string | null
+          user_id?: string
+          username?: string | null
+        }
+        Relationships: []
+      }
       posts: {
         Row: {
           content: string | null
