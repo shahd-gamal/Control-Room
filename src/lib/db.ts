@@ -7,6 +7,7 @@ export type Income = { id: string; user_id: string; source: string; amount: numb
 export type Client = { id: string; user_id: string; name: string; phone: string | null; service_type: string | null; total_price: number; paid_amount: number; status: string; notes: string | null; created_at: string };
 export type Post = { id: string; user_id: string; title: string; content: string | null; scheduled_at: string | null; status: string; image_url: string | null; created_at: string };
 export type Task = { id: string; user_id: string; title: string; priority: string; due_date: string | null; status: string; completed: boolean; created_at: string };
+export type Password = { id: string; user_id: string; label: string; email: string | null; username: string | null; password: string; url: string | null; notes: string | null; created_at: string };
 
 type Tables = {
   expenses: Expense;
@@ -14,6 +15,7 @@ type Tables = {
   clients: Client;
   posts: Post;
   tasks: Task;
+  passwords: Password;
 };
 
 function makeResource<K extends keyof Tables>(table: K, orderBy: string, ascending = false) {
