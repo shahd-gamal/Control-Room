@@ -7,7 +7,7 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/posts")({
-  head: () => ({ meta: [{ title: "FB Posts — Nova" }] }),
+  head: () => ({ meta: [{ title: "FB Posts — Control Room" }] }),
   component: PostsPage,
 });
 

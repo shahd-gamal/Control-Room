@@ -7,7 +7,7 @@ import { useExpenses, useIncome, useClients, usePosts, useTasks } from "@/lib/db
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_authenticated/")({
-  head: () => ({ meta: [{ title: "Dashboard — Nova" }] }),
+  head: () => ({ meta: [{ title: "Dashboard — Control Room" }] }),
   component: Dashboard,
 });
 

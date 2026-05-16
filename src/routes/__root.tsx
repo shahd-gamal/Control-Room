@@ -48,13 +48,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Nova — Personal Business Manager" },
+      { title: "Control Room — My Business Dashboard" },
       { name: "description", content: "Track income, expenses, clients, Facebook posts and tasks in one private dashboard." },
       { name: "theme-color", content: "#7c3aed" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-      { name: "apple-mobile-web-app-title", content: "Nova" },
+      { name: "apple-mobile-web-app-title", content: "Control Room" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
