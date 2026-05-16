@@ -1,7 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Users, ArrowDownRight, ArrowUpRight, ListChecks, Megaphone, Sparkles, X, LogOut, KeyRound } from "lucide-react";
+import { LayoutDashboard, Users, ArrowDownRight, ArrowUpRight, ListChecks, Megaphone, X, LogOut, KeyRound } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/auth";
+import logo from "@/assets/logo.png";
 
 const items = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
