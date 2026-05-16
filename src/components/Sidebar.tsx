@@ -1,7 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Users, ArrowDownRight, ArrowUpRight, ListChecks, Megaphone, Sparkles, X, LogOut, KeyRound } from "lucide-react";
+import { LayoutDashboard, Users, ArrowDownRight, ArrowUpRight, ListChecks, Megaphone, X, LogOut, KeyRound } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/auth";
+import logo from "@/assets/logo.png";
 
 const items = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -28,12 +29,12 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
         <div className="m-3 lg:m-4 h-[calc(100vh-1.5rem)] lg:h-[calc(100vh-2rem)] glass rounded-2xl flex flex-col p-4">
           <div className="flex items-center justify-between mb-8 px-2">
             <Link to="/" className="flex items-center gap-2">
-              <div className="h-9 w-9 rounded-xl gradient-primary grid place-items-center glow">
-                <Sparkles className="h-5 w-5 text-primary-foreground" />
+              <div className="h-10 w-10 rounded-xl overflow-hidden grid place-items-center">
+                <img src={logo} alt="Control Room" className="h-10 w-10 object-contain" />
               </div>
               <div className="leading-tight">
-                <div className="font-semibold">Nova</div>
-                <div className="text-xs text-muted-foreground">Business OS</div>
+                <div className="font-semibold">Control Room</div>
+                <div className="text-xs text-muted-foreground">My Business Dashboard</div>
               </div>
             </Link>
             <button onClick={onClose} className="lg:hidden p-1 rounded-md hover:bg-white/10">

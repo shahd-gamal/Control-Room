@@ -1,6 +1,6 @@
 {
-  "name": "Nova — Personal Business Manager",
-  "short_name": "Nova",
+  "name": "Control Room — My Business Dashboard",
+  "short_name": "Control Room",
   "description": "Track income, expenses, clients, posts and tasks.",
   "start_url": "/",
   "scope": "/",

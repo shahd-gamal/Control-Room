@@ -37,7 +37,7 @@ export function LoginScreen() {
             <Sparkles className="h-6 w-6 text-primary-foreground" />
           </div>
           <div>
-            <div className="text-xl font-bold">Nova</div>
+            <div className="text-xl font-bold">Control Room</div>
             <div className="text-xs text-muted-foreground">Your personal business OS</div>
           </div>
         </div>

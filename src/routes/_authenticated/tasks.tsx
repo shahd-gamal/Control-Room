@@ -7,7 +7,7 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/tasks")({
-  head: () => ({ meta: [{ title: "Tasks — Nova" }] }),
+  head: () => ({ meta: [{ title: "Tasks — Control Room" }] }),
   component: TasksPage,
 });
 
